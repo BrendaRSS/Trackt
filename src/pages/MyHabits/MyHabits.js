@@ -1,29 +1,36 @@
 import styled from "styled-components"
 import FooterMenu from "../../components/FooterMenu"
 import HeaderHabits from "../../components/HeaderHabits"
+import CreateHabit from "../../components/CreateHabit"
 import { MdAddBox } from "react-icons/md"
 import { useContext } from "react"
 import { DadosContext } from "../../context/DadosContext"
 
-export default function MyHabits(){
-    const { 
+export default function MyHabits() {
+    const {
         id, setId,
         name, setName,
         img, setImg,
         email, setEmail,
         password, setPassword,
-        token, setToken 
+        token, setToken,
+        none, setNone
     } = useContext(DadosContext)
 
-    return(
-        <>  
+    function CriarUmNovoHabito(){
+        setNone("")
+    }
+
+    return (
+        <>
             <HeaderHabits />
             <ContainerMyHabits>
-                <AddHabit>Meus Hábitos <MdAddBox /></AddHabit>
+                <AddHabit>Meus Hábitos <MdAddBox onClick={CriarUmNovoHabito} /></AddHabit>
                 <AddedHabits>
-                   <span> 
-                        Você não tem nenhum hábito <br/> 
-                        cadastrado ainda. Adicione um hábito <br/>
+                    <CreateHabit />
+                    <span>
+                        Você não tem nenhum hábito <br />
+                        cadastrado ainda. Adicione um hábito <br />
                         para começar a trackear!
                     </span>
                 </AddedHabits>
@@ -33,14 +40,14 @@ export default function MyHabits(){
     )
 }
 
-const ContainerMyHabits=styled.div`
+const ContainerMyHabits = styled.div`
     width:100vw;
     height: 100vh;
     background-color: #E5E5E5;
     margin-top: 70px;
     margin-bottom: 70px;
 `
-const AddHabit=styled.div`
+const AddHabit = styled.div`
     width: 100%;
     height: 84px;
     display: flex;
@@ -59,12 +66,15 @@ const AddHabit=styled.div`
             font-size:50px;
         }
 `
-const AddedHabits=styled.div`
+const AddedHabits = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     span{
+        display: block;
+        margin-top:10px;
         font-family: 'Lexend Deca';
         font-style: normal;
         font-weight: 400;

@@ -1,6 +1,4 @@
 import { createContext, useState } from "react";
-import perfilImagem from "../assets/images/bobesponja.png"
-
 export const DadosContext = createContext();
 
 export default function ContextProvider({children}){
@@ -11,6 +9,9 @@ export default function ContextProvider({children}){
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [token, setToken] = useState("")
+  const [none, setNone]= useState("none")
+  const [nameHabit, setNameHabit]=useState("")
+  const [diasEscolhidos, setDiasEscolhidos]=useState([])
 
     return (
         <DadosContext.Provider value={{
@@ -19,7 +20,10 @@ export default function ContextProvider({children}){
             img, setImg,
             email, setEmail,
             password, setPassword,
-            token, setToken
+            token, setToken,
+            none, setNone,
+            nameHabit, setNameHabit,
+            diasEscolhidos, setDiasEscolhidos
         }}>{children}</DadosContext.Provider>
     )
 }

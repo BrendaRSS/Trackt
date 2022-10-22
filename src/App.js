@@ -5,7 +5,6 @@ import RegistroPage from "./pages/RegistrationPage/RegistrationPage";
 import MyHabits from "./pages/MyHabits/MyHabits";
 import TodayHabits from "./pages/TodayHabits/TodayHabits";
 import Historic from "./pages/Historic/Historic";
-import { useState } from "react";
 import ContextProvider from "./context/DadosContext";
 
 function App() {
