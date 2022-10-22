@@ -69,7 +69,7 @@ export default function MyHabits() {
 
 const ContainerMyHabits = styled.div`
     width:100vw;
-    height: auto;
+    min-height: 700px;
     background-color: #E5E5E5;
     margin-top: 70px;
     margin-bottom: 70px;

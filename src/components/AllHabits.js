@@ -6,10 +6,11 @@ import { DadosContext } from "../context/DadosContext";
 
 export default function AllHabits({ listaDeHabitos }) {
     const {
-        token
+        token,
+        setTodosHabitos
     } = useContext(DadosContext)
-    
-    function deleteHabit(id){
+
+    function deleteHabit(id) {
         const config = {
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -17,20 +18,34 @@ export default function AllHabits({ listaDeHabitos }) {
         }
 
         axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config)
-       .then(()=>{
-        console.log("item excluido")})
-       .catch((erro)=>{
-            console.log(erro.response.data)
-       })
+            .then(() => {
+                console.log("item excluido")
+                const config = {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+
+                axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
+                    .then((resposta) => {
+                        setTodosHabitos(resposta.data)
+                    })
+                    .catch((erro) => {
+                        console.log(erro.response.data)
+                    })
+            })
+            .catch((erro) => {
+                console.log(erro.response.data)
+            })
     }
 
     return (
         <ContainerAllHabits>
             {listaDeHabitos.map((h) =>
                 <IndividualHabit key={h.id}>
-                    <TitleHabit>{h.name}<BsTrash onClick={()=>deleteHabit(h.id)}/></TitleHabit>
+                    <TitleHabit>{h.name}<BsTrash onClick={() => deleteHabit(h.id)} /></TitleHabit>
                     <DaysIndividualHabit>
-                        {h.days.map((d, index)=><ButtonsDaysHabit key={index}>{d}</ButtonsDaysHabit>)}
+                        {h.days.map((d, index) => <ButtonsDaysHabit key={index}>{d}</ButtonsDaysHabit>)}
                     </DaysIndividualHabit>
                 </IndividualHabit>
             )
@@ -59,7 +74,11 @@ const IndividualHabit = styled.div`
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    svg{
+        font-size: 15px;
+        margin-left: 20px;
+    }
 `
 const TitleHabit = styled.div`
     font-family: 'Lexend Deca', sans-serif;
@@ -74,7 +93,7 @@ const DaysIndividualHabit = styled.div`
     height: auto;
     margin-top: 8px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
 `
 const ButtonsDaysHabit = styled.button`
     width: 30px;

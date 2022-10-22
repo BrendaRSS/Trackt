@@ -10,7 +10,8 @@ export default function CreateHabit() {
         setNameHabit,
         diasEscolhidos,
         setDiasEscolhidos,
-        token, setNone
+        token, setNone,
+        setTodosHabitos
     } = useContext(DadosContext)
     const diasDaSemana = ["D", "S", "T", "Q", "Q", "S", "S"]
     console.log(nameHabit, diasEscolhidos)
@@ -25,7 +26,7 @@ export default function CreateHabit() {
         }
     }
 
-    function enviarDados(event){
+    function enviarDados(event) {
         event.preventDefault() //Verificar se precisa disso
         const body = {
             name: nameHabit,
@@ -37,18 +38,31 @@ export default function CreateHabit() {
                 "Authorization": `Bearer ${token}`
             }
         }
-        
+
         axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", body, config)
-        .then((resposta)=>{
-            console.log(resposta.data)
-            setNone("none")
-        })
-        .catch((erro)=>{
-            console.log(erro.response.data)
-        })
+            .then((resposta) => {
+                console.log(resposta.data)
+                const config = {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+
+                axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
+                    .then((resposta) => {
+                        setTodosHabitos(resposta.data)
+                    })
+                    .catch((erro) => {
+                        console.log(erro.response.data)
+                    })
+                setNone("none")
+            })
+            .catch((erro) => {
+                console.log(erro.response.data)
+            })
     }
 
-    function cancelarCriacaoHabito(){
+    function cancelarCriacaoHabito() {
         setNameHabit("")
         setDiasEscolhidos([])
         setNone("none")
@@ -56,29 +70,29 @@ export default function CreateHabit() {
 
     return (
         <ContainerDisplayNone none={none}>
-                <ChosenHabit>
-                    <input
-                        onChange={e => setNameHabit(e.target.value)}
-                        value={nameHabit}
-                        type="text"
-                        placeholder="nome do hábito"
-                        required />
-                    <ContainerDaysWeek>
-                        {diasDaSemana.map((d, index) =>
-                            <BotaoDiaDaSemana
-                                key={index}
-                                corBorda={(diasEscolhidos.includes(index + 1) === true ? "#FFFFFF" : "#CFCFCF")}
-                                corLetra={(diasEscolhidos.includes(index + 1) === true ? "#FFFFFF" : "#CFCFCF")}
-                                corBotao={(diasEscolhidos.includes(index + 1) === true ? "#CFCFCF" : "#FFFFFF")}
-                                onClick={() => escolherDiasDaSamana(d, index)}>
-                                {d}
-                            </BotaoDiaDaSemana>
-                        )}
-                    </ContainerDaysWeek>
-                    <ButtonCancelOrSave>
-                        <p onClick={cancelarCriacaoHabito}>Cancelar</p><button onClick={enviarDados}>Salvar</button>
-                    </ButtonCancelOrSave>
-                </ChosenHabit>
+            <ChosenHabit>
+                <input
+                    onChange={e => setNameHabit(e.target.value)}
+                    value={nameHabit}
+                    type="text"
+                    placeholder="nome do hábito"
+                    required />
+                <ContainerDaysWeek>
+                    {diasDaSemana.map((d, index) =>
+                        <BotaoDiaDaSemana
+                            key={index}
+                            corBorda={(diasEscolhidos.includes(index + 1) === true ? "#FFFFFF" : "#CFCFCF")}
+                            corLetra={(diasEscolhidos.includes(index + 1) === true ? "#FFFFFF" : "#CFCFCF")}
+                            corBotao={(diasEscolhidos.includes(index + 1) === true ? "#CFCFCF" : "#FFFFFF")}
+                            onClick={() => escolherDiasDaSamana(d, index)}>
+                            {d}
+                        </BotaoDiaDaSemana>
+                    )}
+                </ContainerDaysWeek>
+                <ButtonCancelOrSave>
+                    <p onClick={cancelarCriacaoHabito}>Cancelar</p><button onClick={enviarDados}>Salvar</button>
+                </ButtonCancelOrSave>
+            </ChosenHabit>
         </ContainerDisplayNone>
     )
 }
