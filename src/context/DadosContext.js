@@ -12,6 +12,7 @@ export default function ContextProvider({children}){
   const [none, setNone]= useState("none")
   const [nameHabit, setNameHabit]=useState("")
   const [diasEscolhidos, setDiasEscolhidos]=useState([])
+  const [todosHabitos, setTodosHabitos]=useState(undefined)
 
     return (
         <DadosContext.Provider value={{
@@ -23,7 +24,8 @@ export default function ContextProvider({children}){
             token, setToken,
             none, setNone,
             nameHabit, setNameHabit,
-            diasEscolhidos, setDiasEscolhidos
+            diasEscolhidos, setDiasEscolhidos,
+            todosHabitos, setTodosHabitos
         }}>{children}</DadosContext.Provider>
     )
 }

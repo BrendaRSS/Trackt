@@ -10,7 +10,7 @@ export default function CreateHabit() {
         setNameHabit,
         diasEscolhidos,
         setDiasEscolhidos,
-        token,
+        token, setNone
     } = useContext(DadosContext)
     const diasDaSemana = ["D", "S", "T", "Q", "Q", "S", "S"]
     console.log(nameHabit, diasEscolhidos)
@@ -26,7 +26,7 @@ export default function CreateHabit() {
     }
 
     function enviarDados(event){
-        event.preventDefault()
+        event.preventDefault() //Verificar se precisa disso
         const body = {
             name: nameHabit,
             days: diasEscolhidos
@@ -41,10 +41,17 @@ export default function CreateHabit() {
         axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", body, config)
         .then((resposta)=>{
             console.log(resposta.data)
+            setNone("none")
         })
         .catch((erro)=>{
             console.log(erro.response.data)
         })
+    }
+
+    function cancelarCriacaoHabito(){
+        setNameHabit("")
+        setDiasEscolhidos([])
+        setNone("none")
     }
 
     return (
@@ -69,7 +76,7 @@ export default function CreateHabit() {
                         )}
                     </ContainerDaysWeek>
                     <ButtonCancelOrSave>
-                        <p>Cancelar</p><button onClick={enviarDados}>Salvar</button>
+                        <p onClick={cancelarCriacaoHabito}>Cancelar</p><button onClick={enviarDados}>Salvar</button>
                     </ButtonCancelOrSave>
                 </ChosenHabit>
         </ContainerDisplayNone>
@@ -79,6 +86,7 @@ export default function CreateHabit() {
 const ContainerDisplayNone = styled.div`
     width: 100%;
     height: 180px;
+    margin-bottom: 20px;
     display:${(props) => props.none};
 `
 const ChosenHabit = styled.div`

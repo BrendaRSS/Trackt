@@ -2,9 +2,11 @@ import styled from "styled-components"
 import FooterMenu from "../../components/FooterMenu"
 import HeaderHabits from "../../components/HeaderHabits"
 import CreateHabit from "../../components/CreateHabit"
+import AllHabits from "../../components/AllHabits"
 import { MdAddBox } from "react-icons/md"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { DadosContext } from "../../context/DadosContext"
+import axios from "axios"
 
 export default function MyHabits() {
     const {
@@ -14,10 +16,34 @@ export default function MyHabits() {
         email, setEmail,
         password, setPassword,
         token, setToken,
-        none, setNone
+        none, setNone,
+        todosHabitos, setTodosHabitos
     } = useContext(DadosContext)
+    const [error, setError] = useState(false)
+    console.log(todosHabitos)
 
-    function CriarUmNovoHabito(){
+    useEffect(() => {
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+
+        axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
+            .then((resposta) => {
+                setTodosHabitos(resposta.data)
+                // console.log(resposta.data)
+            })
+            .catch((erro) => {
+                console.log(erro.response.data)
+            })
+    }, [])
+
+    if (!error && todosHabitos === undefined) {
+        return <div>Carregando...</div>
+    }
+
+    function CriarUmNovoHabito() {
         setNone("")
     }
 
@@ -28,11 +54,12 @@ export default function MyHabits() {
                 <AddHabit>Meus Hábitos <MdAddBox onClick={CriarUmNovoHabito} /></AddHabit>
                 <AddedHabits>
                     <CreateHabit />
-                    <span>
-                        Você não tem nenhum hábito <br />
-                        cadastrado ainda. Adicione um hábito <br />
-                        para começar a trackear!
-                    </span>
+                    {todosHabitos === undefined ?
+                        <span>
+                            Você não tem nenhum hábito <br />
+                            cadastrado ainda. Adicione um hábito <br />
+                            para começar a trackear!
+                        </span> : <AllHabits listaDeHabitos={todosHabitos} />}
                 </AddedHabits>
             </ContainerMyHabits>
             <FooterMenu />
@@ -42,7 +69,7 @@ export default function MyHabits() {
 
 const ContainerMyHabits = styled.div`
     width:100vw;
-    height: 100vh;
+    height: auto;
     background-color: #E5E5E5;
     margin-top: 70px;
     margin-bottom: 70px;
