@@ -55,6 +55,8 @@ export default function CreateHabit() {
                     .catch((erro) => {
                         console.log(erro.response.data)
                     })
+                setNameHabit("")
+                setDiasEscolhidos([])
                 setNone("none")
             })
             .catch((erro) => {
@@ -63,8 +65,6 @@ export default function CreateHabit() {
     }
 
     function cancelarCriacaoHabito() {
-        setNameHabit("")
-        setDiasEscolhidos([])
         setNone("none")
     }
 

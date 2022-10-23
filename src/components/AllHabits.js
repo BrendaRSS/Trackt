@@ -11,32 +11,40 @@ export default function AllHabits({ listaDeHabitos }) {
     } = useContext(DadosContext)
 
     function deleteHabit(id) {
-        const config = {
-            headers: {
-                "Authorization": `Bearer ${token}`
+        let respostaDelete= window.confirm("Você realmente seja deletar esse hábito?")
+        
+        if(respostaDelete===true){
+            const config = {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
             }
+    
+            axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config)
+                .then(() => {
+                    console.log("item excluido")
+                    const config = {
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        }
+                    }
+    
+                    axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
+                        .then((resposta) => {
+                            setTodosHabitos(resposta.data)
+                        })
+                        .catch((erro) => {
+                            console.log(erro.response.data)
+                        })
+                })
+                .catch((erro) => {
+                    console.log(erro.response.data)
+                })
+        } else{
+
         }
 
-        axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config)
-            .then(() => {
-                console.log("item excluido")
-                const config = {
-                    headers: {
-                        "Authorization": `Bearer ${token}`
-                    }
-                }
-
-                axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
-                    .then((resposta) => {
-                        setTodosHabitos(resposta.data)
-                    })
-                    .catch((erro) => {
-                        console.log(erro.response.data)
-                    })
-            })
-            .catch((erro) => {
-                console.log(erro.response.data)
-            })
+    
     }
 
     return (

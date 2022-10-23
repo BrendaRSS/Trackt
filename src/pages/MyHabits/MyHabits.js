@@ -54,7 +54,7 @@ export default function MyHabits() {
                 <AddHabit>Meus Hábitos <MdAddBox onClick={CriarUmNovoHabito} /></AddHabit>
                 <AddedHabits>
                     <CreateHabit />
-                    {todosHabitos === undefined ?
+                    {todosHabitos.length === 0 ?
                         <span>
                             Você não tem nenhum hábito <br />
                             cadastrado ainda. Adicione um hábito <br />
