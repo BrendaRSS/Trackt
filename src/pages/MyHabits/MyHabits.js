@@ -20,7 +20,6 @@ export default function MyHabits() {
         todosHabitos, setTodosHabitos
     } = useContext(DadosContext)
     const [error, setError] = useState(false)
-    console.log(todosHabitos)
 
     useEffect(() => {
         const config = {
@@ -73,6 +72,7 @@ const ContainerMyHabits = styled.div`
     background-color: #E5E5E5;
     margin-top: 70px;
     margin-bottom: 70px;
+    z-index: 2;
 `
 const AddHabit = styled.div`
     width: 100%;

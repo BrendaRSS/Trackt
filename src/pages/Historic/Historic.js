@@ -41,6 +41,8 @@ const TitleHistoricHabits=styled.div`
     line-height: 29px;
     color: #126BA5;
         span{
+            display: block;
+            margin-top: 20px;
             font-family: 'Lexend Deca';
             font-style: normal;
             font-weight: 400;

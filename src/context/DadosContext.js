@@ -14,7 +14,7 @@ export default function ContextProvider({children}){
   const [diasEscolhidos, setDiasEscolhidos]=useState("")
   const [todosHabitos, setTodosHabitos]=useState(undefined)
   const [todosHabitosDoDia, setTodosHabitosDoDia]=useState("")
-
+  
     return (
         <DadosContext.Provider value={{
             id, setId, 
@@ -27,7 +27,7 @@ export default function ContextProvider({children}){
             nameHabit, setNameHabit,
             diasEscolhidos, setDiasEscolhidos,
             todosHabitos, setTodosHabitos,
-            todosHabitosDoDia, setTodosHabitosDoDia
+            todosHabitosDoDia, setTodosHabitosDoDia,
         }}>{children}</DadosContext.Provider>
     )
 }

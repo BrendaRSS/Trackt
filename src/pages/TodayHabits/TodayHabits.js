@@ -4,14 +4,14 @@ import HeaderHabits from "../../components/HeaderHabits";
 import {ImCheckboxChecked} from "react-icons/im"
 import { useContext, useEffect } from "react";
 import { DadosContext } from "../../context/DadosContext";
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 import axios from "axios";
 import AllHabitsToday from "../../components/AllHabitsToday";
 
 export default function TodayHabits(){
     const {token, todosHabitosDoDia, setTodosHabitosDoDia} = useContext(DadosContext)
 
-    let date = [dayjs(new Date()).format("dddd, D/MM/YYYY")];
+    let date = [dayjs().locale("pt").format("dddd, D/MM/YYYY")];
 
     useEffect(()=>{
         const config = {
@@ -22,7 +22,6 @@ export default function TodayHabits(){
 
         axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
         .then((resposta)=>{
-            console.log(resposta.data)
             setTodosHabitosDoDia(resposta.data)
         })
         .catch((erro)=>{
@@ -38,7 +37,7 @@ export default function TodayHabits(){
                     { date }
                     <span>Nenhum hábito concluído ainda</span>
                 </Day>
-                {todosHabitosDoDia!==""? <AllHabitsToday todosHabitosDoDia={todosHabitosDoDia}/>:"CARREGANDO"}
+                {todosHabitosDoDia!==""? <ContainerCompletedHabits><AllHabitsToday todosHabitosDoDia={todosHabitosDoDia}/></ContainerCompletedHabits>:"CARREGANDO"}
             </ContainerTodayHabits>
             <FooterMenu />
         </> 
@@ -83,10 +82,4 @@ const ContainerCompletedHabits=styled.div`
     justify-content: center;
     align-items: center;
     margin-top: 30px;
-`
-const TheHabit=styled.div`
-width: 90%;
-height: 94px;
-background: #FFFFFF;
-border-radius: 5px;
 `

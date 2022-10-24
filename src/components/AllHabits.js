@@ -53,7 +53,7 @@ export default function AllHabits({ listaDeHabitos }) {
                 <IndividualHabit key={h.id}>
                     <TitleHabit>{h.name}<BsTrash onClick={() => deleteHabit(h.id)} /></TitleHabit>
                     <DaysIndividualHabit>
-                        {h.days.map((d, index) => <ButtonsDaysHabit key={index}>{d}</ButtonsDaysHabit>)}
+                        {h.days.sort().map((d, index)=> <ButtonsDaysHabit key={index}>{d}</ButtonsDaysHabit>)}
                     </DaysIndividualHabit>
                 </IndividualHabit>
             )
@@ -68,23 +68,26 @@ const ContainerAllHabits = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 1;
 `
 const IndividualHabit = styled.div`
     box-sizing: border-box;
     padding: 20px 10px;
     width: 90%;
     height: 91px;
-    left: 17px;
-    top: 147px;
     background: #FFFFFF;
     border-radius: 5px;
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    position: relative;
     svg{
         font-size: 15px;
         margin-left: 20px;
+        position: absolute;
+        left: 85%;
+        cursor: pointer;
     }
 `
 const TitleHabit = styled.div`

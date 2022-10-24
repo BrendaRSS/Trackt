@@ -1,23 +1,85 @@
 import styled from "styled-components"
-import { BsFillCheckSquareFill } from "react-icons/bs"
+import { BsCheckSquareFill } from "react-icons/bs"
+import { useContext } from "react"
+import { DadosContext } from "../context/DadosContext"
+import axios from "axios"
 
 export default function AllHabisToday({ todosHabitosDoDia }) {
-    console.log(todosHabitosDoDia)
+
+    const { token, setTodosHabitosDoDia } = useContext(DadosContext)
+
+    function marcarHabitoComoFeito(habito) {
+        if (habito.done === false) {
+
+            const config = {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+
+            let body = habito.id
+
+            axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habito.id}/check`, body, config)
+                .then((resposta) => {
+                    axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
+                        .then((resposta) => {
+                            setTodosHabitosDoDia(resposta.data)
+                        })
+                        .catch((erro) => {
+                            console.log(erro.response.data)
+                        })
+                })
+
+                .catch((erro) => {
+                    console.log(erro.response.data)
+                })
+
+
+
+        } else if (habito.done === true) {
+
+            const config = {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+
+            let body = habito.id
+
+            axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habito.id}/uncheck`, body, config)
+                .then((resposta) => {
+                    axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
+                        .then((resposta) => {
+                            setTodosHabitosDoDia(resposta.data)
+                        })
+                        .catch((erro) => {
+                            console.log(erro.response.data)
+                        })
+                })
+
+                .catch((erro) => {
+                    console.log(erro.response.data)
+                })
+        }
+    }
 
     return (
         <ContainerAllHabitsToday>
             {todosHabitosDoDia.map((h) =>
-                <IndividualHabitToday key={h.id}>
+                <IndividualHabitToday
+                    key={h.id}
+                    id={h.id}
+                    done={h.done}>
                     <ControllHabits>
                         <TitleHabitToday>
                             {h.name}
                         </TitleHabitToday>
                         <HabitRecord>
-                            Sequência atual: 3 dias<br />
-                            Seu recorde: 5 dias
+                            Sequência atual:{h.currentSequence} dias<br />
+                            Seu recorde:{h.highestSequence} dias
                         </HabitRecord>
                     </ControllHabits>
-                    <BsFillCheckSquareFill />
+                    <BsCheckSquareFill onClick={() => marcarHabitoComoFeito(h)} />
                 </IndividualHabitToday>)}
         </ContainerAllHabitsToday>
     )
@@ -47,6 +109,10 @@ const IndividualHabitToday = styled.div`
     align-items: center;
     svg{
         font-size: 70px;
+        color: ${(props) => (props.done===true ? "#8FC549" : "#EBEBEB")};
+        border: 1px #E7E7E7;
+        border-radius: 5px;
+        cursor: pointer;
     }
 `
 const ControllHabits = styled.div`

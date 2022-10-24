@@ -14,6 +14,7 @@ export default function HeaderHabits(){
 }
 
 const HeaderLogoHabits=styled.header`
+z-index: 2;
 box-sizing: border-box;
 padding: 0 10px;
 position: fixed;

@@ -23,7 +23,6 @@ export default function HomePage() {
 
         axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body)
             .then((resposta) => {
-                console.log(resposta.data)
                 setId(resposta.data.id)
                 setToken(resposta.data.token)
                 setImg(resposta.data.image)
