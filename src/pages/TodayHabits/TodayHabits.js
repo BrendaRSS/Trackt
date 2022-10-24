@@ -2,21 +2,43 @@ import styled from "styled-components";
 import FooterMenu from "../../components/FooterMenu";
 import HeaderHabits from "../../components/HeaderHabits";
 import {ImCheckboxChecked} from "react-icons/im"
+import { useContext, useEffect } from "react";
+import { DadosContext } from "../../context/DadosContext";
+import dayjs from "dayjs";
+import axios from "axios";
+import AllHabitsToday from "../../components/AllHabitsToday";
 
 export default function TodayHabits(){
+    const {token, todosHabitosDoDia, setTodosHabitosDoDia} = useContext(DadosContext)
+
+    let date = [dayjs(new Date()).format("dddd, D/MM/YYYY")];
+
+    useEffect(()=>{
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+
+        axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
+        .then((resposta)=>{
+            console.log(resposta.data)
+            setTodosHabitosDoDia(resposta.data)
+        })
+        .catch((erro)=>{
+            console.log(erro.response.data)
+        })
+    }, [])
+
     return(
         <>
             <HeaderHabits />
             <ContainerTodayHabits>
                 <Day>
-                    Segunda, 17/05
+                    { date }
                     <span>Nenhum hábito concluído ainda</span>
                 </Day>
-                <ContainerCompletedHabits>
-                    <TheHabit>
-                        HABITO DO DIA <ImCheckboxChecked />
-                    </TheHabit>
-                </ContainerCompletedHabits>
+                <AllHabitsToday todosHabitosDoDia={todosHabitosDoDia}/>
             </ContainerTodayHabits>
             <FooterMenu />
         </> 
@@ -38,7 +60,7 @@ const Day=styled.div`
     align-items: flex-start;
     box-sizing: border-box;
     padding: 30px 20px;
-    font-family: 'Lexend Deca';
+    font-family: 'Lexend Deca', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 22.976px;

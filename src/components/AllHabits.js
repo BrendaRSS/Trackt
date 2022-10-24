@@ -65,7 +65,6 @@ export default function AllHabits({ listaDeHabitos }) {
 
 const ContainerAllHabits = styled.div`
     width: 100%;
-    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
