@@ -7,7 +7,7 @@ export default function AllHabisToday({ todosHabitosDoDia }) {
     return (
         <ContainerAllHabitsToday>
             {todosHabitosDoDia.map((h) =>
-                <IndividualHabitToday>
+                <IndividualHabitToday key={h.id}>
                     <ControllHabits>
                         <TitleHabitToday>
                             {h.name}
@@ -26,6 +26,7 @@ export default function AllHabisToday({ todosHabitosDoDia }) {
 const ContainerAllHabitsToday = styled.div`
     width: 100%;
     height: 100%;
+    background-color: #E5E5E5;
     display: flex;
     flex-direction: column;
     align-items: center;

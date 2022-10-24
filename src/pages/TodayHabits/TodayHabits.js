@@ -38,7 +38,7 @@ export default function TodayHabits(){
                     { date }
                     <span>Nenhum hábito concluído ainda</span>
                 </Day>
-                <AllHabitsToday todosHabitosDoDia={todosHabitosDoDia}/>
+                {todosHabitosDoDia!==""? <AllHabitsToday todosHabitosDoDia={todosHabitosDoDia}/>:"CARREGANDO"}
             </ContainerTodayHabits>
             <FooterMenu />
         </> 

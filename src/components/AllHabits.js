@@ -11,7 +11,7 @@ export default function AllHabits({ listaDeHabitos }) {
     } = useContext(DadosContext)
 
     function deleteHabit(id) {
-        let respostaDelete= window.confirm("Você realmente seja deletar esse hábito?")
+        let respostaDelete= window.confirm("Você realmente deseja deletar esse hábito?")
         
         if(respostaDelete===true){
             const config = {
