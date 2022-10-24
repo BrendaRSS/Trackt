@@ -8,7 +8,7 @@ export default function HeaderHabits(){
     return(
         <HeaderLogoHabits>
             <div><LogoTrackt alt="Texto Logo" src={textoLogo} /></div>
-            <div><ProfileImge alt="Texto Logo" src={img} /></div>
+            <div><ProfileImge data-identifier="avatar" alt="Texto Logo" src={img} /></div>
         </HeaderLogoHabits>
     )
 }

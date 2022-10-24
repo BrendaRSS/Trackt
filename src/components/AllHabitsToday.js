@@ -67,6 +67,7 @@ export default function AllHabisToday({ todosHabitosDoDia }) {
         <ContainerAllHabitsToday>
             {todosHabitosDoDia.map((h) =>
                 <IndividualHabitToday
+                    data-identifier="today-infos"
                     key={h.id}
                     id={h.id}
                     done={h.done}>
@@ -79,7 +80,9 @@ export default function AllHabisToday({ todosHabitosDoDia }) {
                             Seu recorde:{h.highestSequence} dias
                         </HabitRecord>
                     </ControllHabits>
-                    <BsCheckSquareFill onClick={() => marcarHabitoComoFeito(h)} />
+                    <BsCheckSquareFill 
+                    data-identifier="done-habit-btn" 
+                    onClick={() => marcarHabitoComoFeito(h)} />
                 </IndividualHabitToday>)}
         </ContainerAllHabitsToday>
     )

@@ -50,11 +50,15 @@ export default function MyHabits() {
         <>
             <HeaderHabits />
             <ContainerMyHabits>
-                <AddHabit>Meus Hábitos <MdAddBox onClick={CriarUmNovoHabito} /></AddHabit>
+                <AddHabit>Meus Hábitos
+                    <MdAddBox
+                        data-identifier="create-habit-btn"
+                        onClick={CriarUmNovoHabito} />
+                </AddHabit>
                 <AddedHabits>
                     <CreateHabit />
                     {todosHabitos.length === 0 ?
-                        <span>
+                        <span data-identifier="no-habit-message">
                             Você não tem nenhum hábito <br />
                             cadastrado ainda. Adicione um hábito <br />
                             para começar a trackear!

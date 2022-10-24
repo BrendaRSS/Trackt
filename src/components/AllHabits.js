@@ -11,15 +11,15 @@ export default function AllHabits({ listaDeHabitos }) {
     } = useContext(DadosContext)
 
     function deleteHabit(id) {
-        let respostaDelete= window.confirm("Você realmente deseja deletar esse hábito?")
-        
-        if(respostaDelete===true){
+        let respostaDelete = window.confirm("Você realmente deseja deletar esse hábito?")
+
+        if (respostaDelete === true) {
             const config = {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
             }
-    
+
             axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config)
                 .then(() => {
                     console.log("item excluido")
@@ -28,7 +28,7 @@ export default function AllHabits({ listaDeHabitos }) {
                             "Authorization": `Bearer ${token}`
                         }
                     }
-    
+
                     axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
                         .then((resposta) => {
                             setTodosHabitos(resposta.data)
@@ -40,20 +40,26 @@ export default function AllHabits({ listaDeHabitos }) {
                 .catch((erro) => {
                     console.log(erro.response.data)
                 })
-        } else{
+        } else {
 
         }
 
-    
+
     }
 
     return (
         <ContainerAllHabits>
             {listaDeHabitos.map((h) =>
                 <IndividualHabit key={h.id}>
-                    <TitleHabit>{h.name}<BsTrash onClick={() => deleteHabit(h.id)} /></TitleHabit>
+                    <TitleHabit
+                        data-identifier="habit-name">
+                        {h.name}
+                        <BsTrash 
+                        data-identifier="delete-habit-btn"
+                        onClick={() => deleteHabit(h.id)} />
+                    </TitleHabit>
                     <DaysIndividualHabit>
-                        {h.days.sort().map((d, index)=> <ButtonsDaysHabit key={index}>{d}</ButtonsDaysHabit>)}
+                        {h.days.sort().map((d, index) => <ButtonsDaysHabit key={index}>{d}</ButtonsDaysHabit>)}
                     </DaysIndividualHabit>
                 </IndividualHabit>
             )

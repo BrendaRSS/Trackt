@@ -5,9 +5,9 @@ import circuloAzul from "../assets/images/circulo.png"
 export default function FooterMenu(){
     return(
         <FooterHabits>
-            <Link to={"/habitos"}><span>Hábitos</span></Link>
+            <Link to={"/habitos"}><span data-identifier="habit-page-action">Hábitos</span></Link>
             <Link to={"/hoje"}><div><p>Hoje</p><img alt="botão habitos do dia" src={circuloAzul}/></div></Link>
-            <Link to={"/historico"}><span>Histórico</span></Link>
+            <Link to={"/historico"}><span data-identifier="historic-page-action">Histórico</span></Link>
         </FooterHabits>
     )
 }

@@ -6,7 +6,7 @@ import { useContext } from "react"
 import { DadosContext } from "../../context/DadosContext"
 
 export default function RegistroPage() {
-    const { 
+    const {
         name, setName,
         img, setImg,
         email, setEmail,
@@ -40,24 +40,28 @@ export default function RegistroPage() {
             <form onSubmit={enviarDadosCadastro}>
                 <ContainerInputsResgistration>
                     <input
+                        data-identifier="input-email"
                         onChange={e => setEmail(e.target.value)}
                         value={email}
                         type="email"
                         placeholder="email"
                         required />
                     <input
+                        data-identifier="input-password"
                         onChange={e => setPassword(e.target.value)}
                         value={password}
                         type="password"
                         placeholder="senha"
                         required />
                     <input
+                        data-identifier="input-name"
                         onChange={e => setName(e.target.value)}
                         value={name}
                         type="text"
                         placeholder="nome"
                         required />
                     <input
+                        data-identifier="input-photo"
                         onChange={e => setImg(e.target.value)}
                         value={img}
                         type="url"
@@ -66,7 +70,12 @@ export default function RegistroPage() {
                 </ContainerInputsResgistration>
                 <ContainerButtonCadastro>
                     <button type="submit">Cadastrar</button>
-                    <Link to={"/"}><span>Já tem uma conta? Faça login!</span></Link>
+                    <Link to={"/"}>
+                        <span
+                            data-identifier="back-to-login-action">
+                            Já tem uma conta? Faça login!
+                        </span>
+                    </Link>
                 </ContainerButtonCadastro>
             </form>
         </>

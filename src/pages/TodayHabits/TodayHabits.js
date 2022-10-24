@@ -33,7 +33,7 @@ export default function TodayHabits(){
         <>
             <HeaderHabits />
             <ContainerTodayHabits>
-                <Day>
+                <Day data-identifier="today-infos">
                     { date }
                     <span>Nenhum hábito concluído ainda</span>
                 </Day>

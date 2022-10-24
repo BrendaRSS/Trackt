@@ -7,7 +7,7 @@ import { DadosContext } from "../../context/DadosContext"
 
 export default function HomePage() {
     const {
-        id, setId, 
+        id, setId,
         name, setName,
         img, setImg,
         email, setEmail,
@@ -39,12 +39,14 @@ export default function HomePage() {
             <form onSubmit={enviarDadosLogin}>
                 <ContainerInputsHome>
                     <input
+                        data-identifier="input-email"
                         onChange={e => setEmail(e.target.value)}
                         value={email}
                         type="email"
                         placeholder="email"
                         required></input>
                     <input
+                        data-identifier="input-password"
                         onChange={e => setPassword(e.target.value)}
                         value={password}
                         type="password"
@@ -52,8 +54,15 @@ export default function HomePage() {
                         required></input>
                 </ContainerInputsHome>
                 <ContainerButtonEntrar>
-                    <button type="submit">Entrar</button>
-                    <Link to={"/cadastro"}><span>Não tem uma conta? Cadastre-se</span></Link>
+                    <button
+                        data-identifier="login-btn"
+                        type="submit">Entrar</button>
+                    <Link to={"/cadastro"}>
+                        <span
+                            data-identifier="sign-up-action">
+                            Não tem uma conta? Cadastre-se
+                        </span>
+                    </Link>
                 </ContainerButtonEntrar>
             </form>
         </>

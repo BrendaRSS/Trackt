@@ -72,6 +72,7 @@ export default function CreateHabit() {
         <ContainerDisplayNone none={none}>
             <ChosenHabit>
                 <input
+                    data-identifier="input-habit-name"
                     onChange={e => setNameHabit(e.target.value)}
                     value={nameHabit}
                     type="text"
@@ -81,6 +82,7 @@ export default function CreateHabit() {
                     {diasDaSemana.map((d, index) =>
                         <BotaoDiaDaSemana
                             key={index}
+                            data-identifier="week-day-btn"
                             corBorda={(diasEscolhidos.includes(index + 1) === true ? "#FFFFFF" : "#CFCFCF")}
                             corLetra={(diasEscolhidos.includes(index + 1) === true ? "#FFFFFF" : "#CFCFCF")}
                             corBotao={(diasEscolhidos.includes(index + 1) === true ? "#CFCFCF" : "#FFFFFF")}
@@ -90,7 +92,16 @@ export default function CreateHabit() {
                     )}
                 </ContainerDaysWeek>
                 <ButtonCancelOrSave>
-                    <p onClick={cancelarCriacaoHabito}>Cancelar</p><button onClick={enviarDados}>Salvar</button>
+                    <p
+                        data-identifier="cancel-habit-create-btn"
+                        onClick={cancelarCriacaoHabito}>
+                        Cancelar
+                    </p>
+                    <button
+                        data-identifier="save-habit-create-btn"
+                        onClick={enviarDados}>
+                        Salvar
+                    </button>
                 </ButtonCancelOrSave>
             </ChosenHabit>
         </ContainerDisplayNone>
