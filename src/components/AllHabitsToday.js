@@ -76,13 +76,16 @@ export default function AllHabisToday({ todosHabitosDoDia }) {
                             {h.name}
                         </TitleHabitToday>
                         <HabitRecord>
-                            Sequência atual:{h.currentSequence} dias<br />
-                            Seu recorde:{h.highestSequence} dias
+                            Sequência atual: <SequenciaATual done={h.done}>{h.currentSequence} dias</SequenciaATual> <br />
+                            Seu recorde: <Record
+                                recorde={h.currentSequence === h.highestSequence ? (h.highestSequence>0? true:false ): false}>
+                                {h.highestSequence} dias
+                            </Record>
                         </HabitRecord>
                     </ControllHabits>
-                    <BsCheckSquareFill 
-                    data-identifier="done-habit-btn" 
-                    onClick={() => marcarHabitoComoFeito(h)} />
+                    <BsCheckSquareFill
+                        data-identifier="done-habit-btn"
+                        onClick={() => marcarHabitoComoFeito(h)} />
                 </IndividualHabitToday>)}
         </ContainerAllHabitsToday>
     )
@@ -112,7 +115,7 @@ const IndividualHabitToday = styled.div`
     align-items: center;
     svg{
         font-size: 70px;
-        color: ${(props) => (props.done===true ? "#8FC549" : "#EBEBEB")};
+        color: ${(props) => (props.done === true ? "#8FC549" : "#EBEBEB")};
         border: 1px #E7E7E7;
         border-radius: 5px;
         cursor: pointer;
@@ -134,12 +137,28 @@ const TitleHabitToday = styled.div`
     margin-bottom: 7px;
 `
 const HabitRecord = styled.div`
-    width: 146px;
+    width: 170px;
     height: 32px;
     font-family: 'Lexend Deca', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 12.976px;
     line-height: 16px;
-    color: #666666;
+    color: "#666666";
+`
+const SequenciaATual = styled.span`
+        font-family: 'Lexend Deca', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12.976px;
+        line-height: 16px;
+        color: ${(({ done }) => done === true ? "#8FC549" : "#666666")};
+`
+const Record = styled.span`
+        font-family: 'Lexend Deca', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12.976px;
+        line-height: 16px;
+        color: ${(({ recorde }) => recorde === true ? "#8FC549" : "#666666")};
 `

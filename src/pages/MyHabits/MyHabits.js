@@ -10,14 +10,7 @@ import axios from "axios"
 
 export default function MyHabits() {
     const {
-        id, setId,
-        name, setName,
-        img, setImg,
-        email, setEmail,
-        password, setPassword,
-        token, setToken,
-        none, setNone,
-        todosHabitos, setTodosHabitos
+        token, setNone, todosHabitos, setTodosHabitos
     } = useContext(DadosContext)
     const [error, setError] = useState(false)
 
@@ -31,7 +24,6 @@ export default function MyHabits() {
         axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
             .then((resposta) => {
                 setTodosHabitos(resposta.data)
-                // console.log(resposta.data)
             })
             .catch((erro) => {
                 console.log(erro.response.data)

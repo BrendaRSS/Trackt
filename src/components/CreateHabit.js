@@ -17,11 +17,11 @@ export default function CreateHabit() {
     console.log(nameHabit, diasEscolhidos)
 
     function escolherDiasDaSamana(dia, index) {
-        if (diasEscolhidos.includes(index + 1) === false) {
-            let newArray = [...diasEscolhidos, index + 1]
+        if (diasEscolhidos.includes(index) === false) {
+            let newArray = [...diasEscolhidos, index]
             setDiasEscolhidos(newArray)
-        } else if (diasEscolhidos.includes(index + 1) === true) {
-            let newArray = diasEscolhidos.filter((d) => d !== index + 1)
+        } else if (diasEscolhidos.includes(index) === true) {
+            let newArray = diasEscolhidos.filter((d) => d !== index)
             setDiasEscolhidos(newArray)
         }
     }
@@ -83,9 +83,9 @@ export default function CreateHabit() {
                         <BotaoDiaDaSemana
                             key={index}
                             data-identifier="week-day-btn"
-                            corBorda={(diasEscolhidos.includes(index + 1) === true ? "#FFFFFF" : "#CFCFCF")}
-                            corLetra={(diasEscolhidos.includes(index + 1) === true ? "#FFFFFF" : "#CFCFCF")}
-                            corBotao={(diasEscolhidos.includes(index + 1) === true ? "#CFCFCF" : "#FFFFFF")}
+                            corBorda={(diasEscolhidos.includes(index) === true ? "#FFFFFF" : "#CFCFCF")}
+                            corLetra={(diasEscolhidos.includes(index) === true ? "#FFFFFF" : "#CFCFCF")}
+                            corBotao={(diasEscolhidos.includes(index) === true ? "#CFCFCF" : "#FFFFFF")}
                             onClick={() => escolherDiasDaSamana(d, index)}>
                             {d}
                         </BotaoDiaDaSemana>

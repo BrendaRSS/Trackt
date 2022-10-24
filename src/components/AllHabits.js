@@ -10,6 +10,8 @@ export default function AllHabits({ listaDeHabitos }) {
         setTodosHabitos
     } = useContext(DadosContext)
 
+    const diasDaSemana = ["D", "S", "T", "Q", "Q", "S", "S"]
+
     function deleteHabit(id) {
         let respostaDelete = window.confirm("Você realmente deseja deletar esse hábito?")
 
@@ -54,12 +56,19 @@ export default function AllHabits({ listaDeHabitos }) {
                     <TitleHabit
                         data-identifier="habit-name">
                         {h.name}
-                        <BsTrash 
-                        data-identifier="delete-habit-btn"
-                        onClick={() => deleteHabit(h.id)} />
+                        <BsTrash
+                            data-identifier="delete-habit-btn"
+                            onClick={() => deleteHabit(h.id)} />
                     </TitleHabit>
-                    <DaysIndividualHabit>
-                        {h.days.sort().map((d, index) => <ButtonsDaysHabit key={index}>{d}</ButtonsDaysHabit>)}
+                    <DaysIndividualHabit >
+                        {diasDaSemana.map((ds, index) =>
+                            <ButtonsDaysHabit
+                                selected={h.days.sort().includes(index)? true:false}
+                                key={index}>
+                                {ds}
+                            </ButtonsDaysHabit>)}
+
+                        {/* {h.days.sort().map((dn, index) => <ButtonsDaysHabit key={index}>{index}</ButtonsDaysHabit>)} */}
                     </DaysIndividualHabit>
                 </IndividualHabit>
             )
@@ -116,14 +125,14 @@ const ButtonsDaysHabit = styled.button`
     height: 30px;
     left: 31px;
     top: 193px;
-    background: #FFFFFF;
-    border: 1px solid #D5D5D5;
+    background: ${({ selected }) => selected === true ? "#CFCFCF" : "#FFFFFF"};
+    border: 1px solid ${({ selected }) => selected === true ? "#FFFFFF" : "#D4D4D4"};
     border-radius: 5px;
     font-family: 'Lexend Deca', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 19.976px;
     line-height: 25px;
-    color: #DBDBDB;
+    color: ${({ selected }) => selected === true ? "#FFFFFF" : "#D4D4D4"};
     margin-right:5px;
 `
